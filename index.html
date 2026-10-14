@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-store</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <h2>mule-store</h2>
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="Search products...">
+      <i class="fas fa-search"></i>
+    </div>
+    <button class="cart-btn" onclick="toggleCart()">
+      Cart (<span id="cart-count">0</span>)
+    </button>
+  </header>
+
+  <nav class="category-filter">
+    <button class="category-btn active" data-category="all">All</button>
+    <button class="category-btn" data-category="electronics">Electronics</button>
+    <button class="category-btn" data-category="fashion">Fashion</button>
+    <button class="category-btn" data-category="home">Home</button>
+    <button class="category-btn" data-category="sport">Sports</button>
+  </nav>
+
+  <div class="products-container" id="products-container"></div>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-sidebar" id="cart-sidebar">
+    <h2>Your Cart</h2>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-total">
+      <h3>Total: $<span id="cart-total">0.00</span></h3>
+      <button class="checkout-btn" onclick="showPaymentModal()">Checkout</button> 
+    </div>
+  </div>
+
+  <!-- Payment Modal -->
+  <div class="payment-modal" id="payment-modal">
+    <div class="payment-content">
+      <span class="close-btn" onclick="closePaymentContent()">&times;</span>
+      <h2>Payment Details</h2>
+      
+      <div class="payment-methods">
+        <button class="payment-method active" data-method="credit-card">
+          <i class="fas fa-credit-card"></i> Credit Card
+        </button>
+        <button class="payment-method" data-method="paypal">
+          <i class="fas fa-paypal"></i> Paypal
+        </button>
+        <button class="payment-method" data-method="crypto">
+          <i class="fas fa-coins"></i> Crypto
+        </button>
+      </div>
+
+      <form id="payment-form" onsubmit="processPayment(event)">
+        <div class="form-group">
+          <label for="card-number">Card Number</label>
+          <input type="text" id="card-number" pattern="\d{16}" placeholder="1234567812345678" maxlength="16" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">  
+            <label for="exp-date">Expiry Date</label>
+            <input type="month" id="exp-date" required>
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" pattern="\d{3}" placeholder="123" maxlength="3" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="card-holder">Card Holder Name</label>
+          <input type="text" id="card-holder" placeholder="John Doe" required>
+        </div>
+
+        <button type="submit" class="pay-now-btn">
+          <i class="fas fa-lock"></i> Pay $<span class="payment-total" id="payment-total">0.00</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script> 
+</body>
+</html>
